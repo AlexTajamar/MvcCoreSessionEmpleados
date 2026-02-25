@@ -1,4 +1,4 @@
-namespace MvcCoreSessionEmpleadosç.Models
+namespace MvcCoreSessionEmpleados.Models
 {
     public class ErrorViewModel
     {

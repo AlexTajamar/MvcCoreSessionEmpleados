@@ -1,0 +1,21 @@
+﻿@model List<Empleado>
+<h1>Session Salarios</h1>
+
+<p><a asp-controller="Empleados" asp-action="SumaSalarial">Mostrar Suma Salarial</a></p>
+<h4>@ViewData["MENSAJE"]</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Apellido</th>
+            <th>Salario</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var empleado in Model)
+        {
+            <tr>
+                <td>@empleado.apellido</td>
+                <td><a asp-controller="Empleados" asp-action="Index" asp-route-salario="@empleado.salario">Almacenar Salario</a></td>
+            </tr>
+        }
+    </tbody>

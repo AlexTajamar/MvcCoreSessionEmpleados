@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "EmpleadosAlmacenados";
+    List<Empleado> empleados = Context.Session.getObject<List<Empleado>>("EMPLEADOS");
+}
+
+<h1>EmpleadosAlmacenados</h1>
+
+@if (empleados != null && empleados.Count > 0) {
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>
+             emp_no
+            </th>
+            <th>
+             apellido
+            </th>
+            <th>
+              oficio
+            </th>
+            <th>
+               salario
+            </th>
+            <th>
+               dept_no
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in empleados) {
+        <tr>
+            <td>
+                @item.emp_no
+            </td>
+            <td>
+                @item.apellido
+            </td>
+            <td>
+                @item.oficio
+            </td>
+            <td>
+                @item.salario
+            </td>
+            <td>
+                @item.dept_no
+            </td>
+ 
+        </tr>
+}
+    </tbody>
+</table>
+}
+else{
+    <h3>No hay nada en session</h3>
+}
