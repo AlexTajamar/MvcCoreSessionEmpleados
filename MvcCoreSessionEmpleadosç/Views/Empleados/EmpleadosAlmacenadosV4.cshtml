@@ -1,0 +1,25 @@
+﻿@model List<Empleado>
+<h1>Empleados Almacenados OK</h1>
+
+<p>
+    <a asp-controller="Empleados" asp-action="SessionEmpleadosV4">Volver a la lista de empleados</a>
+</p>
+
+@if (Model != null && Model.Count > 0)
+{
+    <h2>Empleados almacenados en sesión:</h2>
+    <ul>
+        @foreach (var empleado in Model)
+        {
+
+            <li>Empleado ID:@empleado.emp_no</li>
+            <li>Apellido: @empleado.apellido</li>
+
+        }
+    </ul>
+}
+else
+{
+    <h2>No hay empleados almacenados en sesión.</h2>
+    <h1>@ViewData["MENSAJE"]</h1>
+}

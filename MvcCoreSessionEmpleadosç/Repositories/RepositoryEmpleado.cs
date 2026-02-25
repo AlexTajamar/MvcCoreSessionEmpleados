@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MvcCoreSessionEmpleados.Data;
 using MvcCoreSessionEmpleados.Models;
+using NuGet.Packaging.Signing;
 
 namespace MvcCoreSessionEmpleados.Repositories
 {
@@ -20,6 +21,13 @@ namespace MvcCoreSessionEmpleados.Repositories
                            select datos;
             return await consulta.ToListAsync();
         }
+        public async Task<List<Empleado>> GetEmpleadosAsyncNotIn(List<int> ids)
+        {
+            var consulta = from datos in this.context.Empleados
+                           where !ids.Contains(datos.emp_no)
+                           select datos;
+            return await consulta.ToListAsync();
+        }
 
         public async Task<Empleado> FindEmpleadoAsync(int id)
         {
@@ -36,5 +44,8 @@ namespace MvcCoreSessionEmpleados.Repositories
                            select datos;
             return await consulta.ToListAsync();
         }
+
+
+
     }
 }
