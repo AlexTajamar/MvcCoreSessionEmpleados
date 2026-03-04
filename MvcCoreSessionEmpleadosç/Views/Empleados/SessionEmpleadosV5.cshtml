@@ -1,0 +1,71 @@
+﻿@model List<Empleado>
+
+@{
+    // Necesitamos Session en la vista para comprobar sus datos
+    List<int> idsEmpleados = Context.Session.getObject<List<int>>("ids");
+    List<Empleado> empleadosFavoritos =memoryCache.Get<List<Empleado>>("FAVORITOS");
+
+}
+
+<div class="container">
+    <h2 class="text-info">Session Empleados V5</h2>
+    @if(empleadosFavoritos != null)
+    {
+        <h3 class="text-success">Empleados Favoritos en Cache</h3>
+        <ul>
+            @foreach (Empleado empleado in empleadosFavoritos)
+            {
+                <li>@empleado.apellido</li>
+            }
+        </ul>
+    }
+
+    @if (Model != null && Model.Count != 0)
+    {
+        <a class="btn btn-success" asp-action="EmpleadosFavoritos" ">Favoritos</a>
+
+        <table class="table table-primary table-bordered">
+            <thead>
+                <tr>
+                    <th>Apellido</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Empleado empleado in Model)
+                {
+                    <tr>
+                        <td>@empleado.apellido</td>
+                        @*Preguntamos si existe el empleado en Session*@
+                        @if (idsEmpleados == null)
+                        {
+                            <td>
+                                <a class="btn btn-success" asp-action="SessionEmpleadosV5" asp-route-idempleado="@empleado.emp_no">Almacenar</a>
+                                <a asp-controller="Empleados" asp-action="SessionEmpleadosV5" asp-route-idfavorito="@empleado.emp_no">Favorito</a>
+
+                            </td>
+                        }
+                        else
+                        {
+                            if (idsEmpleados.Contains(empleado.emp_no))
+                            {
+                                <td><img src="~/images/img.webp" style="width:50px" /></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <a class="btn btn-success" asp-action="SessionEmpleadosV5" asp-route-idempleado="@empleado.emp_no">Almacenar</a>
+                                    <a asp-controller="Empleados" asp-action="SessionEmpleadosV5" asp-route-idfavorito="@empleado.emp_no">Favorito</a>
+
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<div class="container">
+    <a asp-action="EmpleadosAlmacenadosV5">Mostrar Lista por IDs Almacenada</a>
+</div>

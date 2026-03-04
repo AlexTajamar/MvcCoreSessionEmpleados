@@ -3,6 +3,7 @@ using MvcCoreSessionEmpleados.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddMemoryCache();  
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
